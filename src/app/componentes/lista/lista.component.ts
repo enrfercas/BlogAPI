@@ -8,18 +8,21 @@ import {Respuesta} from "../../modelos/respuesta";
   styleUrls: ['./lista.component.css']
 })
 export class ListaComponent {
-  private risposta: any = [];
+  private risposta: Respuesta[] = [];
   public nuevaRespuesta:any = null;
   public searchKey:string="";
   public categorie:any=[];
   public categoria:string="";
+  public numeroDePagina: number = 1;
+  private cursor: number = 0;
+  
 
   constructor(http: HttpClient,public recupera: RecuperaService) {
 
     this.recupera.getPeticion().subscribe((respuesta: any) => {
-      this.nuevaRespuesta = respuesta.blogs;
+      
       this.risposta = respuesta.blogs;
-      console.log(this.nuevaRespuesta);
+      this.nuevaRespuesta = this.risposta.slice(this.cursor,this.cursor+10);
       this.getCategorie();
       this.categorie.push("");
       });
@@ -36,19 +39,14 @@ export class ListaComponent {
 
   // ¡¡¡Por hacer:Tenemos que evitar llamar al servicio y que este haga una petición cada vez que se pulse el botón!!!
   public nextPost(){
-    this.recupera.getNextPosts().subscribe((respuesta: any) => {
-      this.nuevaRespuesta = respuesta.blogs;
-      this.risposta = respuesta.blogs;
-    });
-
-
+    this.cursor +=10;
+    this.nuevaRespuesta = this.risposta.slice(this.cursor,this.cursor+10);
   }
   // ¡¡¡Por hacer:Tenemos que evitar llamar al servicio y que este haga una petición cada vez que se pulse el botón!!!
   public previewPost(){
-    this.recupera.getPreviewPosts().subscribe((respuesta:any)=>{
-      this.nuevaRespuesta= respuesta.blogs;
-      this.risposta = respuesta.blogs;
-    });
+    this.cursor -=10;
+    this.nuevaRespuesta = this.risposta.slice(this.cursor,this.cursor-10);
+   
   }
 
   //Usaremos el método filtra() tanto para filtrar por título mediante el input(searchKey) como para filtrar por categoría de manera simultánea.

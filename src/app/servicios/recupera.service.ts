@@ -9,9 +9,11 @@ import {Respuesta} from "../modelos/respuesta";
   providedIn: 'root'
 })
 export class RecuperaService {
-  private blogUrl = "https://api.slingacademy.com/v1/sample-data/blog-posts";
+  private blogUrl = "https://api.slingacademy.com/v1/sample-data/blog-posts?offset=0&limit=500";
   numberOffset = 0;
   public pageNumber:number = 1;
+
+  
 
 
   constructor(private http: HttpClient) {
@@ -20,7 +22,7 @@ export class RecuperaService {
   public getPeticion(): Observable<Respuesta> {
     return this.http.get<Respuesta>(this.blogUrl);
   }
-  public getNextPosts():Observable<Respuesta>{
+  /* public getNextPosts():Observable<Respuesta>{
     const offset = "?offset=";
     this.numberOffset += 10;
     let nextUrl = this.blogUrl.concat(offset,this.numberOffset.toString());
@@ -39,7 +41,9 @@ export class RecuperaService {
     return this.http.get<Respuesta>(nextUrl);
 
 
-  }
+  } */
+
+  
 
 }
 

@@ -1,23 +1,35 @@
-<div>
+<ng-container class="container">
   <div class="row justify-content-center">
     <div class="col-3 d-flex">
-      <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey" placeholder="Inserisci un titolo">
+      <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey"
+        placeholder="Inserisci un titolo">
       <button class="btn btn-success" type="button" (click)="filtra()">Cerca</button>
       <select name="select" [(ngModel)]="categoria" (change)="filtra()">
         <option *ngFor="let item of categorie" [value]="item">{{item}}</option>
       </select>
     </div>
+  </div>
 
-  </div>
   <div class="row" *ngFor="let item of nuevaRespuesta">
-    <div class="col-12">
-      <h3>{{item.title}}</h3>
-    </div>
-    <div class="col-10">{{item.content_text}}</div>
-    <div class="col-2">
-      <img width="150px" [src]="item.photo_url">
+    <div class="card">
+      <div class="card-body">
+        <div class="col-12">
+          <h3 class="card-title">{{item.title}}</h3>
+          <p class="card-text">{{item.content_text}}</p>
+        </div>
+        <!-- <div class="col-2"></div>
+        <div class="col-8">{{item.content_text}}</div>
+        <div class="col-2">
+          <img width="150px" [src]="item.photo_url">
+        </div> -->
+      </div>
     </div>
   </div>
+
+
+
+
+
   <div>
     <footer class="botones">
       <button class="btn btn-info" type="button" [disabled]="recupera.pageNumber < 2" (click)="previewPost()">Carica i
@@ -30,4 +42,4 @@
 
   </div>
 
-</div>
+</ng-container>
