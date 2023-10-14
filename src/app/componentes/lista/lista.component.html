@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <div class="row justify-content-center">
     <div class="col-3 d-flex">
       <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey" placeholder="Inserisci un titolo">
@@ -31,3 +31,41 @@
   </div>
 
 </div>
+ -->
+<ng-container class="container">
+  <div class="row justify-content-center">
+    <div class="col-3 d-flex">
+      <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey"
+        placeholder="Inserisci un titolo">
+      <button class="btn btn-success" type="button" (click)="filtra()">Cerca</button>
+      <select name="select" [(ngModel)]="categoria" (change)="filtra()">
+        <option *ngFor="let item of categorie" [value]="item">{{item}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let item of nuevaRespuesta">
+    <div class="card">
+      <div class="card-body" class="col-12">
+        <div class="row justify-content-center">
+          <div class="col-7">
+            <h2 class="card-title">{{item.title}}</h2>
+          </div>
+          <div class="col-7">
+            <img [src]="item.photo_url" class="card-img-top">
+          </div>
+        </div>
+        <div class="col-12 d-flex">
+
+          <div class="col-12">
+            <p class="card-text">{{item.content_text}}</p>
+          </div>
+        </div>
+        <!-- <div class="col-2"></div>
+        <div class="col-8">{{item.content_text}}</div>
+        <div class="col-2">
+          <img width="150px" [src]="item.photo_url">
+        </div> -->
+      </div>
+    </div>
+  </div>
