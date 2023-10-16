@@ -1,0 +1,10 @@
+<div *ngIf="post">
+  <div class="card col-10">
+    <div class="card-body">
+      <h3 class="card-title">{{post.title}}</h3>
+      <img class="card-img-top" [src]="post.photo_url">
+      <p class="card-text">{{post.content_text}}</p>
+      <button class="btn-primary" (click)="goBack()">go back</button>
+    </div>
+  </div>
+</div>

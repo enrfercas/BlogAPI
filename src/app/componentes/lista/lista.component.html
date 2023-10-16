@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-3 d-flex">
       <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey"
-        placeholder="Inserisci un titolo">
+             placeholder="Inserisci un titolo">
       <button class="btn btn-success" type="button" (click)="filtra()">Cerca</button>
       <select name="select" [(ngModel)]="categoria" (change)="filtra()">
         <option *ngFor="let item of categorie" [value]="item">{{item}}</option>
@@ -10,33 +10,25 @@
     </div>
   </div>
 
-  <div class="row" *ngFor="let item of nuevaRespuesta">
-    <div class="card">
+  <div class="row">
+    <div *ngFor="let item of nuevaRespuesta" class="card col-4">
       <div class="card-body">
-        <div class="col-12">
-          <h3 class="card-title">{{item.title}}</h3>
-          <p class="card-text">{{item.content_text}}</p>
-        </div>
-         
-          <img width="150px" [src]="item.photo_url">
-        </div>
+        <h3 class="card-title">{{item.title}}</h3>
+        <img class="card-img-top" [src]="item.photo_url">
+        <p class="card-text">{{item.summary}}</p>
+        <a class="btn btn-primary" routerLink="/post/{{item.id}}" >Guarda tutto il post</a>
       </div>
     </div>
+
   </div>
-
-
-
-
-
   <div>
     <footer class="botones">
-      <button class="btn btn-info" type="button" [disabled]="recupera.pageNumber < 2" (click)="previewPost()">Carica i
+      <button class="btn btn-info" type="button" [disabled]="numeroDePagina < 2" (click)="previewPost()">Carica i
         Posts precedenti
       </button>
-      <p>- pagina {{recupera.pageNumber}} da 100-</p>
+      <p>- pagina {{numeroDePagina}} da 100-</p>
 
       <button class="btn btn-info" (click)="nextPost()">Carica Altri Posts</button>
     </footer>
-
   </div>
-
+</div>
