@@ -19,11 +19,20 @@ export class ListaComponent {
 
 
   constructor(public recupera: RecuperaService) {
-
+//Llamamos al servicio para recibir todos los post y los guardamos en un array. Cortamos los 10 primeros elementos para presentar la primera página.
+//En caso de que exista un nuevo post, lo recibimos mediante el servicio y lo añadimos al array de post.
     this.recupera.getPeticion().subscribe((respuesta: any) => {
-
       this.risposta = respuesta.blogs;
+      if(this.recupera.ifNuevoPost){
+        for(let i=0;i<this.recupera.numNuevoPost;i++){
+          this.risposta.unshift(this.recupera.getNuevoPost());
+          this.risposta[i].id=this.risposta.length+1;
+        }
+      }
       this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
+//Llenamos el array de categorías y añadimos una en blanco
+//Añadimos una nueva clave en nuestro array de objetos llamada summary para presentar una cantidad reducida del texto.
+
       this.getCategorie();
       this.categorie.push("");
       this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
@@ -36,7 +45,8 @@ export class ListaComponent {
 
   }
 
-//Usamos el método map() que recorre un array y realiza una función con cada elemento
+//Creamos un array con las categorías que existen en el array para poder filtrar para ello
+// usamos el método map() que recorre un array y realiza una función con cada elemento.
   private getCategorie() {
     this.nuevaRespuesta.map((categoria: Respuesta) => {
       if (!this.categorie.includes(categoria.category)) {
@@ -56,7 +66,7 @@ export class ListaComponent {
     });
   }
 
-  // ¡¡¡Por hacer:Tenemos que evitar llamar al servicio y que este haga una petición cada vez que se pulse el botón!!!
+
   public previewPost() {
     this.cursor -= 10;
     this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
@@ -75,9 +85,13 @@ export class ListaComponent {
     console.log('start search')
 
     if (this.searchKey.length > 0) {
-      const searchKey: string = this.searchKey.toLowerCase();   //Sacamos el paso a toLowerCase del filter() para evitar iterar la función innecesariamente
+      const searchKey: string = this.searchKey.toLowerCase();   //Sacamos la llamada a toLowerCase del filter() para evitar iterar la función innecesariamente
       filtered = filtered.filter((post: any) => {
         return post.title.toLowerCase().includes(searchKey)
+      });
+      this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
+        post.summary = post.content_text.substring(0, 150);
+        return post;
       });
     }
 
@@ -87,9 +101,9 @@ export class ListaComponent {
       });
     }
     this.nuevaRespuesta = filtered
-  }
-
-  public navega() {
-
+    this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
+      post.summary = post.content_text.substring(0, 150);
+      return post;
+    });
   }
 }

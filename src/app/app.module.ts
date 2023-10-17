@@ -5,8 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListaComponent } from './componentes/lista/lista.component';
 import { HttpClientModule } from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PostComponent } from './componentes/post/post.component';
+import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
+import { AddPostComponent } from './componentes/add-post/add-post.component';
 
 
 
@@ -15,13 +17,16 @@ import { PostComponent } from './componentes/post/post.component';
     AppComponent,
     ListaComponent,
     PostComponent,
+    NavBarComponent,
+    AddPostComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

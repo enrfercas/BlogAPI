@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup"  (ngSubmit)="onSubmit()">
+  <div class="container">
+    <label for="titolo">Titolo: </label>
+    <input id="titolo" type="text" class="form-control" formControlName="title">
+  </div>
+  <div class="container">
+    <label for="category">Categoria: </label>
+    <input id="category" type="text" class="form-control" formControlName="category">
+  </div>
+  <div class="container">
+    <label for="photoUrl">Photo Url: </label>
+    <input id="photoUrl" type="text" class="form-control" formControlName="photoUrl">
+  </div>
+  <div class="container">
+    <label for="text">Post Content: </label>
+    <textarea class="form-control" id="text" rows="10" formControlName="content_text"></textarea>
+    <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Submit</button>
+  </div>
+ </form>

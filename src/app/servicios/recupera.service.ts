@@ -11,8 +11,9 @@ import {Respuesta} from "../modelos/respuesta";
 export class RecuperaService {
   private blogUrl = "https://api.slingacademy.com/v1/sample-data/blog-posts?offset=0&limit=500";
   private singleUrl:string="https://api.slingacademy.com/v1/sample-data/blog-posts/"
-  numberOffset = 0;
-  public pageNumber:number = 1;
+  public nuevoPost:any=null;
+  public ifNuevoPost:boolean=false;
+  public numNuevoPost:number=0;
 
 
 
@@ -26,27 +27,16 @@ export class RecuperaService {
   public getSinglePost(id:number): Observable<Respuesta>{
     return this.http.get<Respuesta>(this.singleUrl.concat(id.toString()));
   }
-}
-  /* public getNextPosts():Observable<Respuesta>{
-    const offset = "?offset=";
-    this.numberOffset += 10;
-    let nextUrl = this.blogUrl.concat(offset,this.numberOffset.toString());
-
-    this.pageNumber += 1;
-    return this.http.get<Respuesta>(nextUrl);
-
-
+  public setNuevoPost(nuevoPost:any){
+    this.nuevoPost=nuevoPost;
+    this.ifNuevoPost=true;
+    this.numNuevoPost++;
   }
-  public getPreviewPosts():Observable<Respuesta>{
-    const offset = "?offset=";
-    this.numberOffset -= 10;
-    let nextUrl = this.blogUrl.concat(offset,this.numberOffset.toString());
+  public getNuevoPost(){
 
-    this.pageNumber -= 1;
-    return this.http.get<Respuesta>(nextUrl);
-
-
-  } */
+    return this.nuevoPost;
+  }
+}
 
 
 
