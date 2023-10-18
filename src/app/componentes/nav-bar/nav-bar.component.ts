@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RecuperaService} from "../../servicios/recupera.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,10 +9,11 @@ import {RecuperaService} from "../../servicios/recupera.service";
 })
 export class NavBarComponent {
 
-  constructor(public recupera:RecuperaService) {
+  constructor(public recupera:RecuperaService,public router:Router) {
   }
   public clear(){
     localStorage.clear();
-    this.recupera.ifNuevoPost=false;
+    this.router.navigate(['lista']);
+
   }
 }

@@ -23,26 +23,30 @@ export class ListaComponent {
 //En caso de que exista un nuevo post, lo recibimos mediante el servicio y lo añadimos al array de post.
     this.recupera.getPeticion().subscribe((respuesta: any) => {
       this.risposta = respuesta.blogs;
-      if(this.recupera.ifNuevoPost){
-        for(let i=0;i<this.recupera.numNuevoPost;i++){
-          this.risposta.unshift(this.recupera.getNuevoPost());
-          this.risposta[i].id=this.risposta.length+1;
+
+        if(this.risposta) {
+          let postSavedLocalStorage: any;
+          // @ts-ignore
+          postSavedLocalStorage = JSON.parse(localStorage.getItem("post"));
+          console.log(postSavedLocalStorage);
+          if(postSavedLocalStorage) {
+            this.risposta.unshift(...postSavedLocalStorage)
+          }
+          console.log(this.nuevaRespuesta )
         }
-      }
+
       this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
 //Llenamos el array de categorías y añadimos una en blanco
 //Añadimos una nueva clave en nuestro array de objetos llamada summary para presentar una cantidad reducida del texto.
 
       this.getCategorie();
       this.categorie.push("");
-      this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
+      for(let post of this.nuevaRespuesta) {
         post.summary = post.content_text.substring(0, 150);
-        return post;
-      });
+      }
+      console.log("res",this.nuevaRespuesta)
+
     });
-    console.log("las categorías:", this.categorie);
-
-
   }
 
 //Creamos un array con las categorías que existen en el array para poder filtrar para ello

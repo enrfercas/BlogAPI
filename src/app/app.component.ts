@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {RecuperaService} from "./servicios/recupera.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',

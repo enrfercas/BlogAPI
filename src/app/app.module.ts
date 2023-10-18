@@ -9,6 +9,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PostComponent } from './componentes/post/post.component';
 import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 import { AddPostComponent } from './componentes/add-post/add-post.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 
@@ -27,6 +29,8 @@ import { AddPostComponent } from './componentes/add-post/add-post.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

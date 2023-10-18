@@ -1,6 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import {RecuperaService} from "../../servicios/recupera.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -9,24 +11,35 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 })
 export class AddPostComponent {
 public formGroup:FormGroup;
-  constructor(public recupera: RecuperaService,public formBuilder:FormBuilder) {
+private postSaved: any = []
+  constructor(public recupera: RecuperaService,public formBuilder:FormBuilder,public toastr:ToastrService,public router:Router) {
     this.formGroup=this.formBuilder.group({
       id:[""],
       title:["",[Validators.required, Validators.minLength(4)]],
       content_text:["",[Validators.required,Validators.minLength(15)]],
-      photoUrl:["",[Validators.required]],
+      photo_url:["",[Validators.required]],
       category:["love"],
     });
+
+
+
   }
 ngOnInit(){
 
 }
   onSubmit() {
     const nuevoPost= this.formGroup.value;
-    localStorage.setItem(nuevoPost.title,JSON.stringify(nuevoPost));
-    console.log(nuevoPost);
-    this.recupera.setNuevoPost(nuevoPost);
-    const guardado= localStorage.getItem(nuevoPost.title);
-    console.log(guardado);
+    this.postSaved = localStorage.getItem("post");
+    if(!this.postSaved) {
+      localStorage.setItem("post",JSON.stringify([nuevoPost]));
+    } else {
+      console.log("ciao")
+      this.postSaved = JSON.parse(this.postSaved);
+      this.postSaved.push(nuevoPost);
+      localStorage.setItem("post",JSON.stringify(this.postSaved));
+
+    }
+    this.toastr.success("Il post si è salvato");
+    this.router.navigate(['lista']);
   }
 }
