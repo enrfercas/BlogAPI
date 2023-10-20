@@ -11,12 +11,12 @@
   </div>
 
   <div class="row">
-    <div *ngFor="let item of nuevaRespuesta" class="card col-4">
+    <div *ngFor="let item of nuevaRespuesta" class="card col-3 shadow p-3 mb-5 bg-grey rounded">
       <div class="card-body">
         <h3 class="card-title">{{item.title}}</h3>
-        <img class="card-img-top" [src]="item.photo_url">
+        <img class="card-img-top" width="auto" height="55%" [src]="item.photo_url">
         <p class="card-text">{{item.summary}}</p>
-        <a class="btn btn-primary me-1" routerLink="/post/{{item.id}}" >Guarda tutto il post</a>
+        <a class="btn btn-primary me-1" routerLink="/post/{{item.id}}" >Vai al post</a>
         <button class="btn btn-secondary" (click)="delete(item.id)">Elimina il post</button>
         <a class="btn btn-primary me-1" routerLink="/add/{{item.id}}" >Edita questo post</a>
       </div>
@@ -29,7 +29,6 @@
         Posts precedenti
       </button>
       <p>- pagina {{numeroDePagina}} da 100-</p>
-
       <button class="btn btn-info" (click)="nextPost()">Carica Altri Posts</button>
     </footer>
   </div>

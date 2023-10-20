@@ -37,14 +37,14 @@ export class ListaComponent {
 
         }
 
-      this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
+      this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 12);
 //Llenamos el array de categorías y añadimos una en blanco
 //Añadimos una nueva clave en nuestro array de objetos llamada summary para presentar una cantidad reducida del texto.
 
       this.getCategorie();
       this.categorie.push("");
       for(let post of this.nuevaRespuesta) {
-        post.summary = post.content_text.substring(0, 150);
+        post.summary = post.content_text.substring(0, 200);
       }
 
     });
@@ -62,22 +62,22 @@ export class ListaComponent {
 
 
   public nextPost() {
-    this.cursor += 10;
-    this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
+    this.cursor += 12;
+    this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 12);
     this.numeroDePagina += 1;
     this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
-      post.summary = post.content_text.substring(0, 150);
+      post.summary = post.content_text.substring(0, 200);
       return post;
     });
   }
 
 
   public previewPost() {
-    this.cursor -= 10;
-    this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
+    this.cursor -= 12;
+    this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 12);
     this.numeroDePagina -= 1;
     this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
-      post.summary = post.content_text.substring(0, 150);
+      post.summary = post.content_text.substring(0, 200);
       return post;
     });
   }
@@ -94,7 +94,7 @@ export class ListaComponent {
         return post.title.toLowerCase().includes(searchKey)
       });
       this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
-        post.summary = post.content_text.substring(0, 150);
+        post.summary = post.content_text.substring(0, 200);
         return post;
       });
     }
@@ -106,7 +106,7 @@ export class ListaComponent {
     }
     this.nuevaRespuesta = filtered
     this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
-      post.summary = post.content_text.substring(0, 150);
+      post.summary = post.content_text.substring(0, 200);
       return post;
     });
   }
