@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {RecuperaService} from "../../servicios/recupera.service";
 import {Respuesta} from "../../modelos/respuesta";
 import {Router} from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista',
@@ -110,16 +111,32 @@ export class ListaComponent {
     });
   }
   public delete(id:number){
-    //this.nuevaRespuesta= this.nuevaRespuesta.filter((post:any)=> post.id != id );
-    this.nuevaRespuesta = this.nuevaRespuesta.filter((post:any)=>{
-     return post.id!=id;
-    });
+    //Alert de sweetAlert
+    Swal.fire({
+      title: 'Sei sicuro di voler cancellare questo post?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      },icon:"info"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Cancellato!', '', 'info')
+        //this.nuevaRespuesta= this.nuevaRespuesta.filter((post:any)=> post.id != id );
+        this.nuevaRespuesta = this.nuevaRespuesta.filter((post:any)=>{
+          return post.id!=id;
+        });
+      } else if (result.isDenied) {
+        Swal.fire('Non Cancellato', '', 'info')
+      }
+    })
+
+
   }
 
-  goToForm(id:number) {
-    this.router.navigate(
-      ['/add'],
-      { queryParams: { id: id } }
-    );
-  }
 }

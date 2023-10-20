@@ -3,7 +3,7 @@ import {RecuperaService} from "../../servicios/recupera.service";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-post',
@@ -69,24 +69,39 @@ private postSaved: any = []
 ngOnInit(){
 
 }
-  onSubmit() {
-    let nuevoPost= this.formGroup.value;
-    nuevoPost.id=1001;
+  async onSubmit() {
+    let nuevoPost = this.formGroup.value;
+    nuevoPost.id = 1001;
     this.postSaved = localStorage.getItem("post");
-    console.log("Post Saved:",this.postSaved);
-    if(!this.postSaved) {
-      localStorage.setItem("post",JSON.stringify([nuevoPost]));
+    console.log("Post Saved:", this.postSaved);
+    if (!this.postSaved) {
+      localStorage.setItem("post", JSON.stringify([nuevoPost]));
     } else {
 
       this.postSaved = JSON.parse(this.postSaved);
       this.postSaved.pop();
-      console.log("2ºPost Saved:",this.postSaved)
-      nuevoPost.id=1001+this.postSaved.length;
+      console.log("2ºPost Saved:", this.postSaved)
+      nuevoPost.id = 1001 + this.postSaved.length;
       this.postSaved.push(nuevoPost);
-      localStorage.setItem("post",JSON.stringify(this.postSaved));
+      localStorage.setItem("post", JSON.stringify(this.postSaved));
 
     }
-    this.toastr.success("Il post si è salvato");
+    //this.toastr.success("Il post si è salvato");
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast'
+      },
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true
+    })
+    await Toast.fire({
+      icon: 'success',
+      title: 'Success'
+    })
     this.router.navigate(['lista']);
   }
 }
