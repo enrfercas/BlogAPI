@@ -17,11 +17,10 @@ export class PostComponent implements OnInit {
 
   }
   ngOnInit(): void {
-        this.getSinglePost();
+    this.getSinglePost();
   }
   getSinglePost(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log("El id:",id);
     this.recupera.getSinglePost(Number(id)).
     subscribe((post:any) =>{
       console.log(post);

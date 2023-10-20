@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RecuperaService} from "../../servicios/recupera.service";
 import {Respuesta} from "../../modelos/respuesta";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-lista',
@@ -18,7 +19,7 @@ export class ListaComponent {
   private cursor: number = 0;
 
 
-  constructor(public recupera: RecuperaService) {
+  constructor(public recupera: RecuperaService,private router:Router) {
 //Llamamos al servicio para recibir todos los post y los guardamos en un array. Cortamos los 10 primeros elementos para presentar la primera página.
 //En caso de que exista un nuevo post, lo recibimos mediante el servicio y lo añadimos al array de post.
     this.recupera.getPeticion().subscribe((respuesta: any) => {
@@ -32,7 +33,7 @@ export class ListaComponent {
           if(postSavedLocalStorage) {
             this.risposta.unshift(...postSavedLocalStorage)
           }
-          console.log(this.nuevaRespuesta )
+
         }
 
       this.nuevaRespuesta = this.risposta.slice(this.cursor, this.cursor + 10);
@@ -44,7 +45,6 @@ export class ListaComponent {
       for(let post of this.nuevaRespuesta) {
         post.summary = post.content_text.substring(0, 150);
       }
-      console.log("res",this.nuevaRespuesta)
 
     });
   }
@@ -86,7 +86,6 @@ export class ListaComponent {
   public filtra() {
     let filtered = this.risposta;
 
-    console.log('start search')
 
     if (this.searchKey.length > 0) {
       const searchKey: string = this.searchKey.toLowerCase();   //Sacamos la llamada a toLowerCase del filter() para evitar iterar la función innecesariamente
@@ -109,5 +108,18 @@ export class ListaComponent {
       post.summary = post.content_text.substring(0, 150);
       return post;
     });
+  }
+  public delete(id:number){
+    //this.nuevaRespuesta= this.nuevaRespuesta.filter((post:any)=> post.id != id );
+    this.nuevaRespuesta = this.nuevaRespuesta.filter((post:any)=>{
+     return post.id!=id;
+    });
+  }
+
+  goToForm(id:number) {
+    this.router.navigate(
+      ['/add'],
+      { queryParams: { id: id } }
+    );
   }
 }

@@ -16,7 +16,9 @@
         <h3 class="card-title">{{item.title}}</h3>
         <img class="card-img-top" [src]="item.photo_url">
         <p class="card-text">{{item.summary}}</p>
-        <a class="btn btn-primary" routerLink="/post/{{item.id}}" >Guarda tutto il post</a>
+        <a class="btn btn-primary me-1" routerLink="/post/{{item.id}}" >Guarda tutto il post</a>
+        <button class="btn btn-secondary" (click)="delete(item.id)">Elimina il post</button>
+        <a class="btn btn-primary me-1" routerLink="/add/{{item.id}}" >Edita questo post</a>
       </div>
     </div>
 

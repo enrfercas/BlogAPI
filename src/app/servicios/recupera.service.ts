@@ -18,6 +18,7 @@ export class RecuperaService {
 
 
 
+
   constructor(private http: HttpClient) {
   }
 
@@ -27,15 +28,7 @@ export class RecuperaService {
   public getSinglePost(id:number): Observable<Respuesta>{
     return this.http.get<Respuesta>(this.singleUrl.concat(id.toString()));
   }
-  public setNuevoPost(nuevoPost:any){
-    this.nuevoPost=nuevoPost;
-    this.ifNuevoPost=true;
-    this.numNuevoPost++;
-  }
-  public getNuevoPost(){
 
-    return this.nuevoPost;
-  }
 }
 
 

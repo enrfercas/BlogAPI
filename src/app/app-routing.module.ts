@@ -8,7 +8,9 @@ const routes: Routes = [
   {path:"",component:ListaComponent},
   {path:"lista",component:ListaComponent},
   {path:"post/:id",component:PostComponent},
+  {path:"add/:id",component:AddPostComponent},
   {path:"add",component:AddPostComponent},
+
 ];
 
 @NgModule({
