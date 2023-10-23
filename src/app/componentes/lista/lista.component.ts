@@ -85,7 +85,7 @@ export class ListaComponent {
   //Usaremos el método filtra() tanto para filtrar por título mediante el input(searchKey) como para filtrar por categoría de manera simultánea.
   //Para ello usaremos la misma variable nuevaRespuesta y la actualizamos con cada uno de los filter()
   public filtra() {
-    let filtered = this.risposta;
+    let filtered = this.risposta.slice((this.numeroDePagina-1)*12,this.numeroDePagina*12);
 
 
     if (this.searchKey.length > 0) {
@@ -101,10 +101,10 @@ export class ListaComponent {
 
     if (this.categoria.length > 0) {
       filtered = filtered.filter((post: any) => {
-        return post.category == this.categoria
+        return post.category == this.categoria;
       });
     }
-    this.nuevaRespuesta = filtered
+    this.nuevaRespuesta = filtered;
     this.nuevaRespuesta = this.nuevaRespuesta.map((post: any) => {
       post.summary = post.content_text.substring(0, 200);
       return post;
