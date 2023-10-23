@@ -76,15 +76,23 @@ ngOnInit(){
     console.log("Post Saved:", this.postSaved);
     if (!this.postSaved) {
       localStorage.setItem("post", JSON.stringify([nuevoPost]));
+
     } else {
+      if(this.route.snapshot.paramMap.get('id') && Number(this.route.snapshot.paramMap.get('id')) > 500){
+        this.postSaved = JSON.parse(this.postSaved);
+        console.log("2ºPost Saved:", this.postSaved);
+        this.postSaved= this.postSaved.filter((post:any)=>{
+          return post.id != Number(this.route.snapshot.paramMap.get('id'));
+        });
+        this.postSaved.push(nuevoPost);
 
-      this.postSaved = JSON.parse(this.postSaved);
-      this.postSaved.pop();
-      console.log("2ºPost Saved:", this.postSaved)
-      nuevoPost.id = 1001 + this.postSaved.length;
-      this.postSaved.push(nuevoPost);
+      }else {
+        this.postSaved = JSON.parse(this.postSaved);
+        console.log("3ºPost Saved:", this.postSaved)
+        nuevoPost.id = 1001 + this.postSaved.length;
+        this.postSaved.push(nuevoPost);
+      }
       localStorage.setItem("post", JSON.stringify(this.postSaved));
-
     }
     //this.toastr.success("Il post si è salvato");
     const Toast = Swal.mixin({
