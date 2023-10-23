@@ -1,35 +1,46 @@
-<div>
+<div class="container text-center">
   <div class="row justify-content-center">
-    <div class="col-3 d-flex">
-      <input class="form-control mr-1" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey"
+    <div class="col-12 titulo">
+      <h1>Lista di Posts</h1>
+    </div>
+    <div class="col-6 d-flex mb-5">
+      <input class="form-control" type="text" (ngModelChange)="filtra()" [(ngModel)]="searchKey"
              placeholder="Inserisci un titolo">
-      <button class="btn btn-success" type="button" (click)="filtra()">Cerca</button>
+      <button class="btn btn-success mx-3" type="button" (click)="filtra()">Cerca</button>
       <select name="select" [(ngModel)]="categoria" (change)="filtra()">
         <option *ngFor="let item of categorie" [value]="item">{{item}}</option>
       </select>
     </div>
   </div>
+</div>
 
-  <div class="row">
-    <div *ngFor="let item of nuevaRespuesta" class="card col-3 shadow p-3 mb-5 bg-grey rounded">
+
+<div class="content">
+  <div class="row justify-content-around mx-md-0 mx-1">
+    <div class="col-md-3 col-12 mx-3 card shadow p-3 mb-5 bg-grey rounded" *ngFor="let item of nuevaRespuesta">
       <div class="card-body">
         <h3 class="card-title">{{item.title}}</h3>
-        <img class="card-img-top" width="auto" height="55%" [src]="item.photo_url">
+        <img class="card-img-top" width="auto" height="45%" [src]="item.photo_url">
         <p class="card-text">{{item.summary}}</p>
-        <a class="btn btn-primary me-1" routerLink="/post/{{item.id}}" >Vai al post</a>
-        <button class="btn btn-secondary" (click)="delete(item.id)">Elimina il post</button>
-        <a class="btn btn-primary me-1" routerLink="/add/{{item.id}}" >Edita questo post</a>
+        <button class="btn btn-outline-danger mb-md-0 mb-1" (click)="delete(item.id)">Elimina il post</button>
+        <a class="btn btn-primary mx-1" routerLink="/add/{{item.id}}">Edita questo post</a>
+        <a class="btn btn-primary" routerLink="/post/{{item.id}}">Vai al post</a>
       </div>
     </div>
-
   </div>
-  <div>
-    <footer class="botones">
+</div>
+
+<footer class="container">
+  <div class="row my-5">
+    <div class="col-12 d-flex justify-content-center align-items-center">
       <button class="btn btn-info" type="button" [disabled]="numeroDePagina < 2" (click)="previewPost()">Carica i
         Posts precedenti
       </button>
-      <p>- pagina {{numeroDePagina}} da 100-</p>
+      <p class="mx-1 mb-0">- pagina {{numeroDePagina}} da 100-</p>
       <button class="btn btn-info" (click)="nextPost()">Carica Altri Posts</button>
-    </footer>
+    </div>
   </div>
-</div>
+</footer>
+
+
+
